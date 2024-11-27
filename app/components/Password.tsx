@@ -1,15 +1,19 @@
 "use client";
 import bcrypt from "bcryptjs";
 import { useState } from "react";
+import { passwordHasBeenGenerated } from "../state";
+import { useRecoilState } from "recoil";
 export default function Password() {
   const [password, setPassword] = useState("");
   const [showWarning, setShowWarning] = useState(false);
+  const [_passwordHasBeenGenerated, setPasswordHasBeenGenerated] = useRecoilState(passwordHasBeenGenerated);
   const handleSubmit = () => {
     if (password.length < 5) {
       setShowWarning(true);
       return;
     }
     const hashedPassword = bcrypt.hashSync(password, 10);
+    setPasswordHasBeenGenerated(true);
     localStorage.setItem("token", hashedPassword);
   };
   return (
