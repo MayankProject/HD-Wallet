@@ -2,20 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@import url('https://fonts.googleapis.com/css2?family=Judson:ital,wght@0,400;0,700;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Mada:wght@200..900&display=swap');
+
+*{
+  box-sizing: border-box;
+  font-family: 'Judson', serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.kameron{
+  font-family: "Libre Baskerville", serif;
+}
+.mada{
+  font-family: "Mada", sans-serif;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+.refresh svg{
+  transition: all 0.2s ease-in-out;
+  transform: rotateZ(0deg);
+}
+.refresh:hover svg{
+  scale: 1.05;
+  transform: rotateZ(30deg);
+}
+.proceed svg{
+  transition: all 0.1s ease-in-out;
+  transform: rotateZ(0deg);
+}
+.proceed:hover svg{
+  scale: 1.05;
+  translate: 2px 0px;
+}
+.add-wallet{
+  cursor: pointer;
+}
+.add-wallet svg{
+  transition: all 0.1s ease-in-out;
+  transform: rotateZ(0deg);
+}
+.add-wallet:hover svg{
+  scale: 1.05;
 }

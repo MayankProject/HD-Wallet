@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "@radix-ui/themes/styles.css";
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -24,12 +25,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+    <html lang= "en" >
+    <body
+        className={ `${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden` }
       >
-        {children}
-      </body>
+    { children }
+    </body>
     </html>
   );
 }
