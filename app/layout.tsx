@@ -1,5 +1,6 @@
 import "@radix-ui/themes/styles.css";
 import "./globals.css";
+import { Providers } from "./Providers";
 
 export default function RootLayout({
   children,
@@ -11,7 +12,10 @@ export default function RootLayout({
       <body
         className={`antialiased overflow-x-hidden`}
       >
-        {children}
+
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );

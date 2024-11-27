@@ -1,12 +1,26 @@
 "use client";
 import bcrypt from "bcryptjs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { passwordHasBeenGenerated } from "../state";
 import { useRecoilState } from "recoil";
+import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 export default function Password() {
   const [password, setPassword] = useState("");
   const [showWarning, setShowWarning] = useState(false);
   const [_passwordHasBeenGenerated, setPasswordHasBeenGenerated] = useRecoilState(passwordHasBeenGenerated);
+  const [passwordHashed, setPasswordHashed] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter()
+
+  useEffect(() => {
+    setPasswordHashed(localStorage.getItem("token"));
+    setLoading(false);
+  }, []);
+
+  if (!loading && passwordHashed) {
+    router.push("/")
+  }
   const handleSubmit = () => {
     if (password.length < 5) {
       setShowWarning(true);
@@ -15,6 +29,7 @@ export default function Password() {
     const hashedPassword = bcrypt.hashSync(password, 10);
     setPasswordHasBeenGenerated(true);
     localStorage.setItem("token", hashedPassword);
+    router.push("/")
   };
   return (
     <div className="h-[80vh] flex items-center justify-center">

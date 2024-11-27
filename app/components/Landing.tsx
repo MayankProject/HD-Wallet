@@ -19,7 +19,7 @@ export default function Landing() {
     redirect("/set-password");
   }
   return (
-    <div className="container px-3 max-w-5xl mx-auto py-2 pb-8" >
+    <>
       <Navbar />
       {
         !loading ? (
@@ -35,6 +35,7 @@ export default function Landing() {
             </div>
           </div>
       }
-    </div >
+
+    </>
   );
 }
