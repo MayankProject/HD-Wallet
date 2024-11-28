@@ -1,5 +1,4 @@
 "use client";
-import { Theme } from "@radix-ui/themes";
 import { RecoilRoot } from "recoil";
 export const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
