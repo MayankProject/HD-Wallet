@@ -9,6 +9,7 @@ import nacl from "tweetnacl";
 import { generateMnemonic, mnemonicToSeedSync } from "bip39";
 import { derivePath } from "ed25519-hd-key";
 import { HDNodeWallet } from "ethers";
+import Copy from './Copy';
 
 export default function WalletContainer() {
   const [tabSelect, setTabSelect] = useState<number>(1);
@@ -36,6 +37,7 @@ export default function WalletContainer() {
   const generateEthereumWallet = () => {
     const i = walletDetails[selectedCurrency]["wallets"].length;
     const derivationPathEth = `m/44'/60'/0'/0/${i}`;
+    console.log(secretPhrase)
     const ethWallet = HDNodeWallet.fromPhrase(secretPhrase, "", derivationPathEth);
     return {
       privateKey: ethWallet.privateKey,
@@ -72,7 +74,7 @@ export default function WalletContainer() {
       setWalletDetails(JSON.parse(walletDetails))
     }
     setLoading(false)
-  }, [])
+  }, [_secretPhraseHasBeenGenerated])
 
   const [walletDetails, setWalletDetails] = useState<{
     "SOL": {
@@ -124,8 +126,7 @@ export default function WalletContainer() {
                 onClick={() => {
                   setTabSelect(index + 1)
                   setTabId(index)
-                }
-                }
+                }}
                 key={index}
                 className="relative cursor-pointer z-[10] flex justify-center mada items-center flex-1 px-4 rounded-lg py-2 uppercase text-white"
               >
@@ -154,40 +155,41 @@ export default function WalletContainer() {
           </div>
         </div>
       </div>
-      < div className="flex w-full pr-6 overflow-x-auto gap-2" >
+      < div className="flex w-full overflow-x-auto gap-2" >
 
         {
           walletDetails[selectedCurrency]["wallets"].length ? <motion.div
-            className="hidden md:block h-full overflow-hidden px-4" >
-            <motion.span className="flex max-w-full h-full pl-2 gap-5"
+            className="hidden md:block h-full overflow-hidden pr-8" >
+            <motion.span className="flex max-w-full h-full gap-3"
               animate={{
-                x: TabID * -100 + (TabID == 0 ? -2 : +0) + "%",
+                x: TabID * -75 + (TabID * -7.5) + "%",
                 transition: { type: "spring", bounce: 0.2, duration: 0.8 }
               }
               }>
               {
                 walletDetails[selectedCurrency]["wallets"].map((wallet, index) => (
-                  <div key={index} className="mt-7 border w-full border-[#4D4747] p-8 pt-0 bg-[#111111] text-md text-white font-semibold kameron rounded-[20px] gap-2" >
+                  <div key={index} className="mt-7 border max-w-[50rem] border-[#4D4747] p-8 pt-0 bg-[#111111] text-md text-white font-semibold kameron rounded-[20px] gap-2" >
                     <h1 className="text-[40px] text-[#E5484D] mada my-4" >
                       $0.00
                     </h1>
                     < div className="flex gap-2" >
-                      <div className="bg-[#222222] items-center max-w-[50%] break-words text-wrap flex-1 py-3 px-6 rounded-lg uppercase text-white" >
+                      <div className="bg-[#222222] relative items-center max-w-[50%] break-words text-wrap flex-1 py-3 px-6 rounded-lg uppercase text-white" >
                         <div className="mada text-2xl my-2" >
                           Private Key
                         </div>
-                        < div className="text-sm text-[#837C7C] my-2 mada" >
-                          {wallet.privateKey}
-                        </div>
+                        < input value={wallet.privateKey} type="password" className="text-sm bg-transparent text-[#837C7C] my-2 mada" />
+
+                        <Copy text={wallet.publicKey} textSize='md' />
                       </div>
 
-                      < div className="bg-[#222222] items-center flex-1 px-6 break-words py-3 max-w-[50%] rounded-lg uppercase text-white" >
+                      < div className="bg-[#222222] relative items-center flex-1 px-6 break-words py-3 max-w-[50%] rounded-lg uppercase text-white" >
                         <div className="mada text-2xl my-2" >
                           Public Key
                         </div>
                         < div className="text-sm text-[#837C7C] my-2 mada" >
                           {wallet.publicKey}
                         </div>
+                        <Copy text={wallet.publicKey} textSize='md' />
                       </div>
                     </div>
                   </div>
