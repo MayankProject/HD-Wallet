@@ -15,10 +15,24 @@
 .mada{
   font-family: "Mada", sans-serif;
 }
-
+.hover-to-copy{
+  background-color: rgba(0, 0, 0, 0.5);
+}
 .refresh svg{
   transition: all 0.2s ease-in-out;
   transform: rotateZ(0deg);
+  animation: rotate 3s infinite;
+}
+@keyframes rotate{
+  0%{
+    transform: rotateZ(0deg);
+  }
+  50%{
+    transform: rotateZ(360deg);
+  }
+  100%{
+    transform: rotateZ(360deg);
+  }
 }
 .refresh:hover svg{
   scale: 1.05;
